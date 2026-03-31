@@ -1,5 +1,5 @@
 // api/update-plan.js
-const SHOPIFY_STORE = "tu-tienda.myshopify.com";
+const SHOPIFY_STORE = process.env.SHOPIFY_STORE;
 const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN; // Admin API token
 const NAMESPACE_PLAN = "medife"; // El namespace de tus metafields
 
