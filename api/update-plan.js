@@ -113,7 +113,7 @@ const [metaRes, tagsRes] = await Promise.all([...]);
 
 const metaData = await metaRes.json();
 const tagsData = await tagsRes.json();
-
+ 
 // Agregá estas líneas:
 console.log('META RESPONSE:', JSON.stringify(metaData));
 console.log('TAGS RESPONSE:', JSON.stringify(tagsData));
