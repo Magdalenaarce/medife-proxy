@@ -14,7 +14,7 @@ const TEMPLATE = "medicion-pupilar";
 
 const COLLECTION_HANDLES = [
   "obra-social-a",
-  "obra-social-b",
+  "obrea-social-b",
   "obra-social-c",
 ];
 
