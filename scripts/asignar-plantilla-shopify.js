@@ -9,7 +9,7 @@
  */
 
 const SHOP = "a16f5d-dd.myshopify.com";;
-const ACCESS_TOKEN = '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';
+const ACCESS_TOKEN = process.env.SHOPIFY_SHOP;
 const TEMPLATE = "medicion-pupilar";
 
 const COLLECTION_HANDLES = [
