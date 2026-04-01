@@ -61,8 +61,8 @@ module.exports = async function handler(req, res) {
         }`,
         variables: {
           metafields: [
-            { ownerId: customerGid, namespace: 'custom', key: 'plan', value: planNombre, type: 'single_line_text_field' },
-            { ownerId: customerGid, namespace: 'custom', key: 'plan_2', value: planId, type: 'metaobject_reference' }
+            { ownerId: customerGid, namespace: 'custom', key: 'plan_1', value: planNombre, type: 'single_line_text_field' },
+            { ownerId: customerGid, namespace: 'custom', key: 'plan_2', value: 'gid://shopify/Metaobject/' + planId, type: 'metaobject_reference' }
           ]
         }
       })
