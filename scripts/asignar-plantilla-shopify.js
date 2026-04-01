@@ -8,7 +8,7 @@
  *   SHOPIFY_ACCESS_TOKEN  → ej: shpat_xxxxxxxxxxxx
  */
 
-const SHOP = process.env.SHOPIFY_SHOP;
+const SHOP = "a16f5d-dd.myshopify.com";;
 const ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 const TEMPLATE = "medicion-pupilar";
 
