@@ -40,11 +40,29 @@ async function request(path, method = "GET", body = null) {
 }
 
 async function getCollectionIdByHandle(handle) {
-  const data = await request(`/collections.json?handle=${handle}`);
-  const col = data.collections?.[0];
+  const query = `{
+    collectionByHandle(handle: "${handle}") {
+      id
+      title
+    }
+  }`;
+  
+  const res = await fetch(`https://${SHOP}/admin/api/2023-10/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'X-Shopify-Access-Token': ACCESS_TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query })
+  });
+  
+  const data = await res.json();
+  const col = data?.data?.collectionByHandle;
   if (!col) throw new Error(`Colección no encontrada: "${handle}"`);
   console.log(`  ✔ Colección encontrada: "${col.title}" (ID: ${col.id})`);
-  return col.id;
+  
+  // Extraer el ID numérico del GID
+  return col.id.split('/').pop();
 }
 
 async function getAllProductsInCollection(collectionId) {
