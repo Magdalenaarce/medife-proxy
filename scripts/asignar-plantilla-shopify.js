@@ -23,7 +23,7 @@ if (!SHOP || !ACCESS_TOKEN) {
   process.exit(1);
 }
 
-const BASE_URL = `https://${SHOP}/admin/api/2024-04`;
+const BASE_URL = `//${SHOP}/admin/api/2023-10`;
 
 async function request(path, method = "GET", body = null) {
   const opts = {
