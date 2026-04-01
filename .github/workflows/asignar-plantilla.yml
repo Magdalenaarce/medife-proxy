@@ -1,0 +1,26 @@
+# .github/workflows/asignar-plantilla.yml
+# Ejecuta el script manualmente desde GitHub Actions
+
+name: Asignar plantilla medicion-pupilar
+
+on:
+  workflow_dispatch:   # Se ejecuta solo cuando vos lo iniciás manualmente
+
+jobs:
+  asignar-plantilla:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Ejecutar script
+        env:
+          SHOPIFY_SHOP: ${{ secrets.SHOPIFY_SHOP }}
+          SHOPIFY_ACCESS_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+        run: node scripts/asignar-plantilla-shopify.js
