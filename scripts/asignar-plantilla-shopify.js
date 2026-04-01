@@ -80,28 +80,29 @@ async function updateProductTemplate(productId, productTitle) {
 }
 
 async function main() {
-  const query = `{
-    collections(first: 50) {
-      edges {
-        node {
-          handle
-          title
-        }
+  console.log(`\n🔧 Asignando plantilla "${TEMPLATE}"...\n`);
+  let actualizados = 0;
+  let omitidos = 0;
+
+  for (const handle of COLLECTION_HANDLES) {
+    console.log(`\n📂 Colección: "${handle}"`);
+    const collectionId = await getCollectionIdByHandle(handle);
+    const products = await getAllProductsInCollection(collectionId);
+    console.log(`  → ${products.length} producto(s)`);
+
+    for (const product of products) {
+      if (product.template_suffix === TEMPLATE) {
+        console.log(`    ⏭  Sin cambios: "${product.title}"`);
+        omitidos++;
+        continue;
       }
+      await updateProductTemplate(product.id, product.title);
+      actualizados++;
+      await new Promise((r) => setTimeout(r, 500));
     }
-  }`;
-  
-  const res = await fetch(`https://${SHOP}/admin/api/2023-10/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'X-Shopify-Access-Token': ACCESS_TOKEN,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ query })
-  });
-  
-  const data = await res.json();
-  console.log(JSON.stringify(data?.data?.collections?.edges?.map(e => e.node), null, 2));
+  }
+
+  console.log(`\n✅ Listo. Actualizados: ${actualizados} | Sin cambios: ${omitidos}`);
 }
 
 main().catch((err) => {
