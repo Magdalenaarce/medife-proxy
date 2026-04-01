@@ -8,8 +8,8 @@
  *   SHOPIFY_ACCESS_TOKEN  → ej: shpat_xxxxxxxxxxxx
  */
 
-const SHOP = "a16f5d-dd.myshopify.com";;
-const ACCESS_TOKEN = process.env.SHOPIFY_SHOP;
+const SHOP = "a16f5d-dd.myshopify.com";
+const ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 const TEMPLATE = "medicion-pupilar";
 
 const COLLECTION_HANDLES = [
@@ -23,7 +23,7 @@ if (!SHOP || !ACCESS_TOKEN) {
   process.exit(1);
 }
 
-const BASE_URL = `//${SHOP}/admin/api/2023-10`;
+const BASE_URL = `https://${SHOP}/admin/api/2023-10`;
 
 async function request(path, method = "GET", body = null) {
   const opts = {
