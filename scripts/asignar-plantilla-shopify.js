@@ -13,9 +13,6 @@ const ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 const TEMPLATE = "medicion-pupilar";
 
 const COLLECTION_HANDLES = [
-  "obra-social-a",
-  "obrea-social-b",
-  "obra-social-c",
   "exchange-armani-vista",
   "lentes-de-vista-unisex",
 ];
