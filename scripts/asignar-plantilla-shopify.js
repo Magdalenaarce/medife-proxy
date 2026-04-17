@@ -16,6 +16,8 @@ const COLLECTION_HANDLES = [
   "obra-social-a",
   "obrea-social-b",
   "obra-social-c",
+  "exchange-armani-vista",
+  "lentes-de-vista-unisex",
 ];
 
 if (!SHOP || !ACCESS_TOKEN) {
