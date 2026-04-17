@@ -15,6 +15,7 @@ const TEMPLATE = "medicion-pupilar";
 
 const COLLECTION_HANDLES = [
   "lentes-de-vista-unisex",
+  "exchange-armani-vista",
 ];
 
 if (!SHOP || !ACCESS_TOKEN) {
