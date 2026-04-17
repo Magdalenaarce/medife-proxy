@@ -16,11 +16,34 @@ const COLLECTION_HANDLES = [
   "lentes-de-vista-unisex",
 ];
 
+console.log("SHOP:", SHOP);
+console.log("TOKEN?", !!ACCESS_TOKEN);
+console.log("TOKEN PREFIX:", ACCESS_TOKEN?.slice(0, 8));
+console.log("TOKEN SUFFIX:", ACCESS_TOKEN?.slice(-6));
 if (!SHOP || !ACCESS_TOKEN) {
   console.error("❌ Faltan las variables de entorno SHOPIFY_SHOP o SHOPIFY_ACCESS_TOKEN");
   process.exit(1);
 }
+const SHOP = "a16f5d-dd.myshopify.com";
+const ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 
+const res = await fetch(`https://${SHOP}/admin/api/2025-10/graphql.json`, {
+  method: "POST",
+  headers: {
+    "X-Shopify-Access-Token": ACCESS_TOKEN,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    query: `{
+      shop {
+        name
+      }
+    }`,
+  }),
+});
+
+console.log("STATUS:", res.status);
+console.log(await res.text());
 const BASE_URL = `https://${SHOP}/admin/api/2023-10`;
 
 async function request(path, method = "GET", body = null) {
