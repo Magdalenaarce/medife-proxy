@@ -38,29 +38,48 @@ async function request(path, method = "GET", body = null) {
 }
 
 async function getCollectionIdByHandle(handle) {
-  const query = `{
-    collectionByHandle(handle: "${handle}") {
-      id
-      title
+  const query = `
+    query GetCollectionByHandle($query: String!) {
+      collections(first: 1, query: $query) {
+        nodes {
+          id
+          title
+          handle
+        }
+      }
     }
-  }`;
-  
+  `;
+
   const res = await fetch(`https://${SHOP}/admin/api/2023-10/graphql.json`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'X-Shopify-Access-Token': ACCESS_TOKEN,
-      'Content-Type': 'application/json',
+      "X-Shopify-Access-Token": ACCESS_TOKEN,
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ query })
+    body: JSON.stringify({
+      query,
+      variables: {
+        query: `handle:${handle}`,
+      },
+    }),
   });
-  
+
   const data = await res.json();
-  const col = data?.data?.collectionByHandle;
-  if (!col) throw new Error(`Colección no encontrada: "${handle}"`);
+
+  if (data.errors) {
+    throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+  }
+
+  const col = data?.data?.collections?.nodes?.[0];
+
+  console.log(JSON.stringify(data, null, 2));
+
+  if (!col) {
+    throw new Error(`Colección no encontrada con handle "${handle}". Respuesta: ${JSON.stringify(data)}`);
+  }
+
   console.log(`  ✔ Colección encontrada: "${col.title}" (ID: ${col.id})`);
-  
-  // Extraer el ID numérico del GID
-  return col.id.split('/').pop();
+  return col.id.split("/").pop();
 }
 
 async function getAllProductsInCollection(collectionId) {
